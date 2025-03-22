@@ -1,0 +1,19 @@
+auto -> compile time에 타입 추론해서 프로그램 컴파일.
+따라서 runtime에는 이미 컴파일러가 추론한 타입이 프로그램에 적용되어 있기 때문에 auto 타입을 사용해서 생기는 시간적 오버헤드는 크게 고려하지 않아도 된다?
+
+함수 람다 / 함수포인터
+일반적으로 함수포인터로 전달하면 함수 실행(스택생성 및 정리)에 들어가는 시간이 더 오래걸리니까
+람다로 실행하면 컴파일 타임에 inline코드처럼 최적화가 가능. 물론 컴파일러 따라 다름
+
+comp함수
+comp 함수에서 false 반환하면 두 개체를 서로 바꾼다/
+comp 함수가 return a < b면 오름차순 정렬됨
+return a < b 면 a가 b보다 작으면 true -> 안바꾼다
+                                false -> 바꾼다
+** comp함수의 인자는 const 타입
+auto type 써서 받을거 아니면 const를 무조건 작성해줘야지 컴파일 오류 발생 안함.
+comp(const int& a, const int& b) -> O
+comp(int& a, int& b) -> X
+
+[] (auto& a, auto& b) -> △ -> const를 쓰지 않아도 auto가 추론해주던가 뭐 변경할 일이 없으면 문제는 안생기는데 잠재적인 오류의 가능성을 준다...
+[] (const auto& a, const auto& b) -> O 권장
