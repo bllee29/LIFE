@@ -1,0 +1,47 @@
+7785
+map 사용법
+
+map : 키-값(key-value) 쌍을 저장하는 연관 컨테이너(Associative Container)이며, 내부적으로 Red-Black Tree(균형 이진 탐색 트리) 를 사용하여 정렬된 상태를 유지
+시간 복잡도: 삽입, 삭제, 검색 모두 O(log N)
+std::unordered_map과 비교: unordered_map은 해시 기반으로 평균 O(1) 성능
+
+요소 삽입
+std::map<int, std::string> myMap;
+myMap.insert({1, "One"});
+myMap[2] = "Two";   // `operator[]` 사용 가능
+myMap.emplace(3, "Three"); // 더 효율적인 삽입 (C++11)
+
+요소 검색
+if (myMap.find(2) != myMap.end()) {  // 키 2가 존재하는지 확인
+    std::cout << "Key 2 exists: " << myMap[2] << '\n';
+}
+
+요소 삭제
+myMap.erase(1);  // 키 1을 가진 요소 삭제
+
+특정 키 존재 확인인
+if (myMap.count(2) > 0) {
+    std::cout << "Key 2 exists\n";
+}
+
+반복문 가능
+for (const auto& [key, value] : myMap) { // C++17 구조적 바인딩
+    std::cout << key << ": " << value << '\n';
+}
+
+정렬 방식 변경가능 greater-> 내림차순
+std::map<int, std::string, std::greater<int>> descMap;
+descMap[3] = "Three";
+descMap[1] = "One";
+descMap[2] = "Two";
+
+for (const auto& [key, value] : descMap) {
+    std::cout << key << ": " << value << '\n';
+}
+
+사용자 정의 정렬 가능
+struct CustomCompare {
+    bool operator()(const std::string& a, const std::string& b) const {
+        return a.length() < b.length(); // 문자열 길이 기준 정렬
+    }
+};

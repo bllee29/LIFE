@@ -1,3 +1,4 @@
+10814
 auto -> compile time에 타입 추론해서 프로그램 컴파일.
 따라서 runtime에는 이미 컴파일러가 추론한 타입이 프로그램에 적용되어 있기 때문에 auto 타입을 사용해서 생기는 시간적 오버헤드는 크게 고려하지 않아도 된다?
 
@@ -17,3 +18,8 @@ comp(int& a, int& b) -> X
 
 [] (auto& a, auto& b) -> △ -> const를 쓰지 않아도 auto가 추론해주던가 뭐 변경할 일이 없으면 문제는 안생기는데 잠재적인 오류의 가능성을 준다...
 [] (const auto& a, const auto& b) -> O 권장
+
+
+    stable_sort(v.begin(), v.end(), [](auto& a, auto& b){
+        return a.first < b.first;
+    });
