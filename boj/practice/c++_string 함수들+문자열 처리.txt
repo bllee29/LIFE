@@ -1,0 +1,78 @@
+size() 또는 length()	문자열 길이 반환
+empty()	                문자열이 비어 있는지 확인
+at(pos)	                특정 위치의 문자 반환 (범위 검사 O)
+[] 연산자	            특정 위치 문자 접근 (범위 검사 X)
+append(str)	            문자열 뒤에 str 붙임
++ 연산자	            문자열 연결
+compare(str)	        문자열 비교 (0이면 같음)
+find(str)	            부분 문자열 str을 찾고, 시작 인덱스 반환
+substr(pos, len)	    pos부터 len만큼의 부분 문자열 반환
+erase(pos, len)	        pos부터 len만큼 제거
+insert(pos, str)	    pos 위치에 str 삽입
+replace(pos, len, str)	pos부터 len만큼을 str로 대체
+stoi(str)	            문자열을 int로 변환
+
+
+substr(pos, len)
+문자열의 일부분을 추출하는 함수
+string s = "HelloWorld";
+string sub = s.substr(5, 5);  // "World"
+
+string a = "ABCDE";
+cout << a.substr(2);     // "CDE"
+cout << a.substr(1, 2);  // "BC"
+
+find(str)
+문자열에서 특정 문자나 문자열을 찾고, 시작 위치를 반환
+string s = "banana";
+int pos = s.find("na");  // pos = 2
+
+없을 경우 확인: string::npos
+if (s.find("apple") == string::npos) {
+    cout << "apple not found!";
+}
+
+stoi(str)
+문자열을 정수(int)로 변환하는 함수
+std::stoi()는 <string> 헤더에 포함
+숫자가 아닌 문자열을 넣으면 invalid_argument 예외 발생
+너무 큰 수는 out_of_range 예외 발생
+
+string s = "42 is the answer";
+int x = stoi(s); // x = 42 (공백이나 문자 나오기 전까지만 읽음)
+
+stoi("1010", nullptr, 2);  // 10 (2진수 해석)
+
+
+
+
+stringstream이란?
+<sstream> 헤더에 포함되어 있는 클래스이며, 문자열을 **스트림(흐름)**처럼 다루게 해주는 도구
+
+cin이나 ifstream처럼 >> 연산자, getline()과 함께 사용 가능
+
+int main() {
+    string str = "10 20 30";
+    stringstream ss(str);
+    int num;
+    while (ss >> num) {
+        cout << num << "\n";
+    }
+}
+
+getline()이란?
+getline(istream& is, string& str, char delim)는 입력 스트림에서 문자열을 **지정한 구분자(delimiter)**까지 읽어 str에 저장
+getline(입력_스트림, 저장_문자열, 구분자);
+
+getline과 stringstream을 활용하면 split함수처럼 사용 가능
+
+vector<string> split(const string& str, char delimiter) {
+    vector<string> result;
+    stringstream ss(str);
+    string token;
+
+    while (getline(ss, token, delimiter)) {
+        result.push_back(token);
+    }
+    return result;
+}
